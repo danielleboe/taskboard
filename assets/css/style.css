@@ -23,7 +23,7 @@ body {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
-  padding-top: 100px; Location of the box
+  padding-top: 100px; /*Location of the box */
   left: 0;
   top: 0;
   width: 100%; /* Full width */
@@ -39,7 +39,8 @@ body {
   margin: auto;
   padding: 20px;
   /* border: 1px solid #888; */
-  width: 80%;
+  /* width: 80%; */
+  width: 20rem;
 }
 
 /* The Close Button */
@@ -63,4 +64,14 @@ li{
 
 .card-header {
   display: inline;
+}
+
+.close {
+  position:absolute;
+  right: 10px;
+  top: 5px;;
+}
+
+.card{
+  margin: 5% 0 5% 0;
 }
