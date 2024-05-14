@@ -22,17 +22,17 @@
   </header>
   <div class="container">
     <div class="text-center mb-5">
-      <button class="btn btn-success" data-bs-toggle="newTask" data-bs-target="#formModal" id="myBtn">Add Task</button>
+      <button class="btn btn-success" data-bs-togsgle="modal" data-bs-target="#formModal" id="myBtn">Add Task</button>
+      </div>
       <!-- The Modal -->
 <form id="myModal" class="newTask">
-
   <!-- Modal content -->
-  
-  <div class="mb-3">
-    <div class="card" style="width: 18rem;">
-    <span class="close">&times;</span>
+
+  <div class="mb-3 card" style="width: 18rem;">
+   
       <div class="card-header">
         Add Task
+        <span class="close">&times;</span>
       </div>
       <ul class="list-group list-group-flush">
         <li class="card-body">
@@ -47,20 +47,12 @@
         <textarea name="taskDescription" id="taskDescription" rows="5" class="form-control" placeholder="Enter your description here..."></textarea>
       </li>
       <li class="card-body">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" id="submit-new-task">Submit</button>
     </li>
       </ul>
-      
-    </div>
-    
-  
   </div>
-  
-
-
 </form>
-      </div>
-    </div>
+    
 
 
     <!-- Todo: Create a modal with a form to add tasks -->

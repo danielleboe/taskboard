@@ -1,6 +1,10 @@
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
+const tasktitleInput = document.querySelector('#taskTitle');
+const duedateformInput = document.querySelector('#datepicker');
+const taskDescriptionInput = document.querySelector('#taskDescription');
+const submitTask = document.querySelector('#submit-new-task');
 
 
 // Todo: create a function to generate a unique task id
@@ -45,6 +49,15 @@ window.onclick = function(event) {
 
 // }
 
+submit.addEventListener('click', function (event) {
+    event.preventDefault();
+    
+    const tasktitleForm = tasktitleInput.value;
+    const duedateForm = duedateformInput.value;
+    const taskdescriptionForm = taskDescriptionInput.value;
+
+});
+
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
 
@@ -69,5 +82,6 @@ function handleDrop(event, ui) {
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
+    localStorage.setItem();
 
 });

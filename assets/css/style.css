@@ -19,7 +19,7 @@ body {
 /* !!!!!!added css!!!! */
 
 /* The Modal (background) */
-.modal {
+.newTask {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -59,4 +59,8 @@ body {
 
 li{
   list-style-type: none
+}
+
+.card-header {
+  display: inline;
 }
