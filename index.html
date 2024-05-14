@@ -28,19 +28,19 @@
 <form id="myModal" class="newTask">
   <!-- Modal content -->
 
-  <div class="mb-3 card modal-content" style="width: 18rem;">
-   
-      <div class="card-header">
+  <div class="mb-3 card modal-content" >
+    
+      <div class="card-header"><span class="close">&times;</span>
         Add Task
-        <span class="close">&times;</span>
+        
       </div>
       <ul class="list-group list-group-flush">
         <li class="card-body">
-          <label for="name" class="form-label">Task Title</label>
+          <label for="title" class="form-label">Task Title</label>
           <input type="text" class="form-control" id="taskTitle" name="task_title" />
         </li>
         <li class="card-body">
-          <label for="name" class="form-label">Task Due Date</label>
+          <label for="due-date" class="form-label">Task Due Date</label>
           <input type="text" id="datepicker" name="due_date"class="form-control"/>
         </li>
         <li class="card-body">Task Description
