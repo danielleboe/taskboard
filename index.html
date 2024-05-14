@@ -22,8 +22,47 @@
   </header>
   <div class="container">
     <div class="text-center mb-5">
-      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
+      <button class="btn btn-success" data-bs-toggle="newTask" data-bs-target="#formModal" id="myBtn">Add Task</button>
+      <!-- The Modal -->
+<form id="myModal" class="newTask">
+
+  <!-- Modal content -->
+  
+  <div class="mb-3">
+    <div class="card" style="width: 18rem;">
+    <span class="close">&times;</span>
+      <div class="card-header">
+        Add Task
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="card-body">
+          <label for="name" class="form-label">Task Title</label>
+          <input type="text" class="form-control" id="taskTitle" name="task_title" />
+        </li>
+        <li class="card-body">
+          <label for="name" class="form-label">Task Due Date</label>
+          <input type="text" id="datepicker" name="due_date"class="form-control"/>
+        </li>
+        <li class="card-body">Task Description
+        <textarea name="taskDescription" id="taskDescription" rows="5" class="form-control" placeholder="Enter your description here..."></textarea>
+      </li>
+      <li class="card-body">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </li>
+      </ul>
+      
     </div>
+    
+  
+  </div>
+  
+
+
+</form>
+      </div>
+    </div>
+
+
     <!-- Todo: Create a modal with a form to add tasks -->
     <div class="row swim-lanes text-center justify-content-between">
       <div class="col-12 col-lg-4 d-flex">
@@ -32,7 +71,22 @@
             <h2 class="card-title mb-1">To Do</h2>
           </div>
           <div class="card-body bg-light">
-            <div id="todo-cards"></div>
+            <div id="todo-cards">
+<!-- card content to insert -->
+              <div class="card">
+                <div class="card-header">
+                  Task Title
+                </div>
+                <div class="card-body task">
+                  <p class="card-text status">Status</p>
+                  <p class="card-text due-date" >Due Date</p>
+                  <a href="#" class="btn btn-primary delete">Delete</a>
+                  
+                </div>
+              </div>
+<!-- card content to insert -->
+
+            </div>
           </div>
         </div>
       </div>
