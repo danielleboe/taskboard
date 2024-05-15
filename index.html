@@ -47,7 +47,7 @@
         <textarea name="taskDescription" id="taskDescription" rows="5" class="form-control" placeholder="Enter your description here..."></textarea>
       </li>
       <li class="card-body">
-      <button type="submit" class="btn btn-primary" id="submit-new-task">Submit</button>
+      <button type="submit" class="btn btn-primary" id="submit-new-task">Save</button>
     </li>
       </ul>
   </div>
@@ -63,9 +63,9 @@
             <h2 class="card-title mb-1">To Do</h2>
           </div>
           <div class="card-body bg-light">
-            <div id="todo-cards">
+            <div id="todo-cards" ondrop="drop(event)" ondragover="allowDrop(event)">
 <!-- card content to insert -->
-              <div class="card">
+              <div class="card" draggable="true" ondragstart="drag(event)">
                 <div class="card-header">
                   Task Title
                 </div>
@@ -88,7 +88,7 @@
             <h2 class="card-title mb-1">In Progress</h2>
           </div>
           <div class="card-body bg-light">
-            <div id="in-progress-cards"></div>
+            <div id="in-progress-cards" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
           </div>
         </div>
         </div>
@@ -98,7 +98,7 @@
               <h2 class="card-title mb-1">Done</h2>
             </div>
             <div class="card-body bg-light">
-              <div id="done-cards"></div>
+              <div id="done-cards" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
           </div>
           </div>
       </div>
