@@ -58,11 +58,11 @@ console.log(taskId);
         const taskdescriptionForm = taskDescriptionInput.value;
         // const taskId = taskId;
     
-        function generateTaskId() {
-            let taskId = x + 1;
-        Math.floor(Math.count(taskId) +1);
-        console.log(taskId.value);
-        }
+        // function generateTaskId() {
+        //     let taskId = x + 1;
+        // Math.floor(Math.count(taskId) +1);
+        // console.log(taskId.value);
+        // }
 
         const singleTask = {
             tasktitleForm: tasktitleForm,
@@ -95,9 +95,20 @@ console.log(taskId);
 // function renderTaskList() {
 // }
 
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  };
 
+function allowDrop(ev) {
+    ev.preventDefault();
+  };
+  
 
-
+  function drop(ev) {
+    ev.preventDefault();
+    let data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+  };
 
 
 
@@ -147,6 +158,9 @@ taskBody.setAttribute("class","card-body task");
 taskName.setAttribute("class", "card-header");
 taskStatus.setAttribute("class", "card-text status");
 deleteTask.setAttribute("class","btn btn-primary delete");
+taskDueDate.setAttribute("class", "card-text status");
+taskCard.setAttribute("draggable", "true");
+taskCard.setAttribute("ondragstart","drag(event)");
 
 
 }

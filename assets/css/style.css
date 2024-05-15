@@ -23,6 +23,7 @@ body {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
+  margin:auto;
   padding-top: 100px; /*Location of the box */
   left: 0;
   top: 0;
@@ -31,6 +32,7 @@ body {
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  
 }
 
 /* Modal Content */
@@ -41,6 +43,7 @@ body {
   /* border: 1px solid #888; */
   /* width: 80%; */
   width: 20rem;
+
 }
 
 /* The Close Button */
@@ -59,7 +62,7 @@ body {
 }
 
 li{
-  list-style-type: none
+  list-style-type: none;
 }
 
 .card-header {
@@ -75,3 +78,21 @@ li{
 .card{
   margin: 5% 0 5% 0;
 }
+
+.overdue{
+background-color: #FB6962;
+}
+
+.overdue-delete{
+  background-color: #ff2020;
+
+}
+
+.neardue{
+  background-color:#FCFC99;
+}
+
+.neardue-delete{
+  background-color: 	#ffc905;
+}
+
