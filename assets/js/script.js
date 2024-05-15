@@ -1,3 +1,7 @@
+
+
+
+
 // Retrieve tasks and nextId from localStorage
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
@@ -9,23 +13,24 @@ const submitTask = document.querySelector('#submit-new-task');
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
-    let taskId = x + 1;
-Math.floor(Math.random() * 100000) +1;
-console.log(taskId);
+  let myuuid = crypto.randomUUID();
+  console.log(myuuid);
+  return myuuid;
 }
 
-// Todo: create a function to create a task card
+
+// Todo: create a function to create a task card - (popup modal)
 // function createTaskCard(task) {
 
 
     // Get the modal
-    var newTask = document.getElementById("myModal");
+    const newTask = document.getElementById("myModal");
 
     // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
+    const btn = document.getElementById("myBtn");
     
     // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
+    const closeButton = document.getElementsByClassName("close")[0];
     
     // When the user clicks the button, open the modal 
     btn.onclick = function() {
@@ -33,7 +38,7 @@ console.log(taskId);
     }
     
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
+    closeButton.onclick = function() {
         newTask.style.display = "none";
     }
     
@@ -47,8 +52,7 @@ console.log(taskId);
       $( function() {
         $( "#datepicker" ).datepicker();
       } );
-    
-    // }
+  
     
     submitTask.addEventListener('click', function (event) {
         event.preventDefault();
@@ -56,20 +60,14 @@ console.log(taskId);
         const tasktitleForm = tasktitleInput.value;
         const duedateForm = duedateformInput.value;
         const taskdescriptionForm = taskDescriptionInput.value;
-        // const taskId = taskId;
-    
-        // function generateTaskId() {
-        //     let taskId = x + 1;
-        // Math.floor(Math.count(taskId) +1);
-        // console.log(taskId.value);
-        // }
-
         const singleTask = {
             tasktitleForm: tasktitleForm,
             duedateForm: duedateForm,
             taskdescriptionForm: taskdescriptionForm,
-            // taskId: taskID.value,
-            dttm: new Date()
+            dttm: new Date(),
+            taskId: generateTaskId(),
+            state: 'todo'
+
           };
       
           // declare variable for parent
@@ -86,7 +84,9 @@ console.log(taskId);
       
           //localStorage set item json.stringify()
           localStorage.setItem('parentTasks', JSON.stringify(parentTasks));
-          myModal.reset();
+          newTask.reset();
+          newTask.style.display = "none";
+          window.location.reload();
         }
     );
 
@@ -95,26 +95,109 @@ console.log(taskId);
 // function renderTaskList() {
 // }
 
-
-
 function allowDrop(event) {
-    event.preventDefault();
-  };
-  
+  event.preventDefault();
+  console.log('Made it here ++++++++');
+  // event.dataTransfer.dropEffect = "move";
+  // const inProgress = document.getElementById ('in-progress-cards');
+  // const done = document.getElementById ('done-cards');
+  // console.log("++++",event.dataTransfer);
+// inProgress.appendChild(taskCard);
+  // const data = event.dataTransfer.getData("text/plain");
+  // done.appendChild(document.getElementById(data));
+  // console.log("allowDrop+++");
+};
 
-  function drop(event) {
-    event.preventDefault();
-    let data = event.dataTransfer.getData("text");
-    event.target.appendChild(document.getElementById(data));
+function drag(event) {
+  console.log('Dragging +++++++++++++++++');
+  event.dataTransfer.setData("text", event.target.id);
+  event.dataTransfer.dropEffect = "move";
+  console.log("dragEvent++++",event.dataTransfer);
 
 };
-function drag(event) {
-    event.dataTransfer.setData("text", event.target.id);
-  };
 
 
 
+function drop(event) {
+    event.preventDefault();
+    // let data = event.dataTransfer.getData("text");
+    // event.target.appendChild(document.getElementById(data));
+    console.log("drop+++", event);
 
+};
+
+function dragEnter(event){
+  event.preventDefault();
+};
+
+$(document).ready(function () {
+  const draggableElement = document.querySelector(".card-body");
+const droppableArea = document.getElementById('done-cards');
+
+// Event handler for when dragging starts
+draggableElement.addEventListener('dragstart', (event) => {
+  // Set the data to be transferred during the drag operation
+  event.dataTransfer.setData('text/plain', event.target.id);
+});
+
+// Event handler for when dropping occurs
+droppableArea.addEventListener('drop', (event) => {
+  // Prevent the default behavior to allow dropping
+  event.preventDefault();
+  
+  // Retrieve the data that was set during the drag operation
+  const data = event.dataTransfer.getData('text/plain');
+  
+  // Find the draggable element based on the data
+  const draggableElement = document.getElementById(data);
+  
+  // Append the draggable element to the droppable area
+  event.target.appendChild(draggableElement);
+});
+
+// Event handler for when a draggable element is being dragged over the droppable area
+droppableArea.addEventListener('dragover', (event) => {
+  // Prevent the default behavior to allow dropping
+  event.preventDefault();
+});
+});
+
+// ////////
+// Get references to the draggable element and the droppable area
+// const draggableElement = document.querySelector(".card");
+// const droppableArea = document.getElementById('done-cards');
+
+// // Event handler for when dragging starts
+// draggableElement.addEventListener('dragstart', (event) => {
+//   console.log('Drag start ++++++++++++++++');
+//   // Set the data to be transferred during the drag operation
+//   event.dataTransfer.setData('text/plain', event.target.id);
+// });
+
+// // Event handler for when dropping occurs
+// droppableArea.addEventListener('drop', (event) => {
+//   console.log('Drop ++++++++++++++++');
+//   // Prevent the default behavior to allow dropping
+//   event.preventDefault();
+  
+//   // Retrieve the data that was set during the drag operation
+//   const data = event.dataTransfer.getData('text/plain');
+  
+//   // Find the draggable element based on the data
+//   const draggableElement = document.getElementById(data);
+  
+//   // Append the draggable element to the droppable area
+//   event.target.appendChild(draggableElement);
+// });
+
+// // Event handler for when a draggable element is being dragged over the droppable area
+// droppableArea.addEventListener('dragover', (event) => {
+//   console.log('Drag over ++++++++++++++++');
+//   // Prevent the default behavior to allow dropping
+//   event.preventDefault();
+// });
+
+///////
 
 // Todo: create a function to handle adding a new task
 // function handleAddTask(event){
@@ -123,17 +206,17 @@ function drag(event) {
 const lastTask = JSON.parse(localStorage.getItem('parentTasks'));
 // console.log(lastPost);
 
-//sort reverse chronological order
-// const sortResult = lastTask.sort(function (a, b) {
-//     // console.log(new Date(a.dttm), "+++++++");
-//     // console.log(new Date(b.dttm), "+++++++");
-//     return new Date(b.dttm) - new Date(a.dttm);
-// });
+// sort reverse chronological order
+const sortResult = lastTask.sort(function (a, b) {
+    // console.log(new Date(a.dttm), "+++++++");
+    // console.log(new Date(b.dttm), "+++++++");
+    return new Date(b.dttm) - new Date(a.dttm);
+});
 
 for (const singleTask of lastTask) {
-
-
 const todoCards =  document.getElementById('todo-cards');
+const inProgress = document.getElementById ('in-progress-cards');
+const done = document.getElementById ('done-cards');
 const taskCard = document.createElement('div');
 const taskName = document.createElement('div');
 const taskBody = document.createElement('div');
@@ -149,6 +232,8 @@ taskDescription.textContent = `${singleTask.taskdescriptionForm}`;
 
 
 todoCards.appendChild(taskCard);
+// inProgress.appendChild(taskCard);
+// done.appendChild(taskCard); 
 taskCard.appendChild(taskName);
 taskCard.appendChild(taskBody);
 taskBody.appendChild(taskDescription);
@@ -162,7 +247,8 @@ taskDescription.setAttribute("class", "card-text status");
 deleteTask.setAttribute("class","btn btn-primary delete");
 taskDueDate.setAttribute("class", "card-text due-date");
 taskCard.setAttribute("draggable", "true");
-taskCard.setAttribute("ondragstart","drag(event)");
+// taskCard.setAttribute("ondragstart","drag(event)");
+taskCard.setAttribute("id", singleTask.taskId )
 
 };
 
