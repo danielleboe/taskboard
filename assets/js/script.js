@@ -95,19 +95,21 @@ console.log(taskId);
 // function renderTaskList() {
 // }
 
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-  };
 
-function allowDrop(ev) {
-    ev.preventDefault();
+
+function allowDrop(event) {
+    event.preventDefault();
   };
   
 
-  function drop(ev) {
-    ev.preventDefault();
-    let data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
+  function drop(event) {
+    event.preventDefault();
+    let data = event.dataTransfer.getData("text");
+    event.target.appendChild(document.getElementById(data));
+
+};
+function drag(event) {
+    event.dataTransfer.setData("text", event.target.id);
   };
 
 
@@ -135,7 +137,7 @@ const todoCards =  document.getElementById('todo-cards');
 const taskCard = document.createElement('div');
 const taskName = document.createElement('div');
 const taskBody = document.createElement('div');
-const taskStatus = document.createElement('p');
+const taskDescription = document.createElement('p');
 const taskDueDate = document.createElement('p');
 const deleteTask = document.createElement('a');
 
@@ -143,27 +145,26 @@ const deleteTask = document.createElement('a');
 taskName.textContent = singleTask.tasktitleForm;
 taskDueDate.textContent = `Due ${singleTask.duedateForm}`;
 deleteTask.textContent = `Delete`;
-taskStatus.textContent = `${singleTask.taskStatus}`;
+taskDescription.textContent = `${singleTask.taskdescriptionForm}`;
 
 
 todoCards.appendChild(taskCard);
 taskCard.appendChild(taskName);
 taskCard.appendChild(taskBody);
-taskBody.appendChild(taskStatus);
+taskBody.appendChild(taskDescription);
 taskBody.appendChild(taskDueDate);
 taskBody.appendChild(deleteTask);
 
 taskCard.setAttribute("class","card");
 taskBody.setAttribute("class","card-body task");
 taskName.setAttribute("class", "card-header");
-taskStatus.setAttribute("class", "card-text status");
+taskDescription.setAttribute("class", "card-text status");
 deleteTask.setAttribute("class","btn btn-primary delete");
-taskDueDate.setAttribute("class", "card-text status");
+taskDueDate.setAttribute("class", "card-text due-date");
 taskCard.setAttribute("draggable", "true");
 taskCard.setAttribute("ondragstart","drag(event)");
 
-
-}
+};
 
 /* <div class="card">
                 <div class="card-header">
