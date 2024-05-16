@@ -34,65 +34,103 @@
     </header>
     <div class="container">
       <div class="text-center mb-5">
-        <button
+        <!-- <button
           class="btn btn-success"
           
           data-bs-target="#myModal"
           id="myBtn"
         >
           Add Task
-        </button>
+        </button> -->
+
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="myBtn">
+            Add Task
+          </button>
       </div>
       <!-- The Modal -->
-      <form id="myModal" class="modal newTask">
-        <!-- Modal content -->
 
-        <div class="mb-3 card modal-content">
-          <div class="card-header">
-            <span class="close">&times;</span>
-            Add New Task
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div>
+         
+            <!-- <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div> -->
+            <div class="">
+                <form id="myModal" class="modal modal-dialog modal-dialog-centered">
+                    <!-- Modal content -->
+            
+                    <div class="mb-3 card modal-content">
+                      <div class="card-header modal-header">
+
+
+                        <!-- <button type="button" class="" data-bs-dismiss="modal" ></button> -->
+
+                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+                        <!-- Add New Task -->
+                        
+                        <h5 class="modal-title" id="exampleModalLabel">Add New</h5>
+                        <!-- <span class="close" id="closebtn">&times;</span> -->
+
+                        <button class="close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      
+                      <ul class="list-group list-group-flush">
+                        <li class="card-body">
+                          <label for="taskTitle" class="form-label">Task Title</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="taskTitle"
+                            name="task_title"
+                          />
+                        </li>
+                        <li class="card-body">
+                          <label for="datepicker" class="form-label">Task Due Date</label>
+                          <input
+                            type="text"
+                            id="datepicker"
+                            name="due_date"
+                            class="form-control"
+                          />
+                        </li>
+                        <li class="card-body">
+                          Task Description
+                          <textarea
+                            name="taskDescription"
+                            id="taskDescription"
+                            rows="5"
+                            class="form-control"
+                            placeholder="Enter your description here..."
+                          ></textarea>
+                        </li>
+                        <li class="card-body">
+                          <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="submit-new-task"
+                          >
+                            Save
+                          </button>
+                        </li>
+                      </ul>
+                    </div>
+                  </form>
+            </div>
+            <!-- <div class="modal-footer">
+
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
           </div>
-          <ul class="list-group list-group-flush">
-            <li class="card-body">
-              <label for="taskTitle" class="form-label">Task Title</label>
-              <input
-                type="text"
-                class="form-control"
-                id="taskTitle"
-                name="task_title"
-              />
-            </li>
-            <li class="card-body">
-              <label for="datepicker" class="form-label">Task Due Date</label>
-              <input
-                type="text"
-                id="datepicker"
-                name="due_date"
-                class="form-control"
-              />
-            </li>
-            <li class="card-body">
-              Task Description
-              <textarea
-                name="taskDescription"
-                id="taskDescription"
-                rows="5"
-                class="form-control"
-                placeholder="Enter your description here..."
-              ></textarea>
-            </li>
-            <li class="card-body">
-              <button
-                type="submit"
-                class="btn btn-primary"
-                id="submit-new-task"
-              >
-                Save
-              </button>
-            </li>
-          </ul>
-        </div>
-      </form>
+        
+      </div>
+
+
+      
+
+
+
 
       <!-- Todo: Create a modal with a form to add tasks -->
       <div class="row swim-lanes text-center justify-content-between">
