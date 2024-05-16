@@ -36,21 +36,21 @@
       <div class="text-center mb-5">
         <button
           class="btn btn-success"
-          data-bs-togsgle="modal"
-          data-bs-target="#formModal"
+          
+          data-bs-target="#myModal"
           id="myBtn"
         >
           Add Task
         </button>
       </div>
       <!-- The Modal -->
-      <form id="myModal" class="newTask">
+      <form id="myModal" class="modal newTask">
         <!-- Modal content -->
 
         <div class="mb-3 card modal-content">
           <div class="card-header">
             <span class="close">&times;</span>
-            Add Task
+            Add New Task
           </div>
           <ul class="list-group list-group-flush">
             <li class="card-body">
@@ -110,12 +110,12 @@
             <div class="card-body bg-light" id="todo-body">
               <div id="todo-cards">
                 <!-- card content to insert -->
-                <!-- <div class="card" draggable="true" ondragstart="drag(event)">
+                <!-- <div class="card neardue" draggable="true" ondragstart="drag(event)">
                 <div class="card-header">
                   Task Title
                 </div>
                 <div class="card-body task">
-                  <p class="card-text status">Task Description</p>
+                  <p class="card-text taskDescription">Task Description</p>
                   <p class="card-text due-date" >Due Date</p>
                   <a href="#" class="btn btn-primary delete">Delete</a>
                   
