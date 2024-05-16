@@ -149,35 +149,7 @@ function updateTask(taskId, targetId) {
     localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
   }
 
-  // const tasktitleForm = tasktitleInput.value;
-  // const duedateForm = duedateformInput.value;
-  // const taskdescriptionForm = taskDescriptionInput.value;
-  // const singleTask = {
-  //     tasktitleForm: tasktitleForm,
-  //     duedateForm: duedateForm,
-  //     taskdescriptionForm: taskdescriptionForm,
-  //     dttm: new Date(),
-  //     taskId: generateTaskId(),
-  //     state: 'todo'
-  //   };
-
-  //   // declare variable for parent
-  //   // add to single post to existing json array
-  //   let parentTasks = [];
-  //   // const existingTasks = JSON.parse(localStorage.getItem('parentTasks'));
-
-  //   //if parentpost exists then add to existing last post
-  //   if (existingTasks !== null) {
-  //     parentTasks = existingTasks;
-  //   }
-
-  //   parentTasks.push(singleTask);
-
-  //   //localStorage set item json.stringify()
-  //   localStorage.setItem('parentTasks', JSON.stringify(parentTasks));
-  //   newTask.reset();
-  //   newTask.style.display = "none";
-  //   window.location.reload();
+  
 }
 
 ///////
@@ -211,9 +183,19 @@ for (const singleTask of lastTask) {
   deleteTask.textContent = `Delete`;
   taskDescription.textContent = `${singleTask.taskdescriptionForm}`;
 
-  todoCards.appendChild(taskCard);
-  // inProgress.appendChild(taskCard);
-  // done.appendChild(taskCard);
+if (singleTask.state === "inProgress") {
+  inProgress.appendChild(taskCard);
+
+    } else if (singleTask.state === "done") {
+      done.appendChild(taskCard);
+    } else {
+      todoCards.appendChild(taskCard);
+    }
+
+    
+
+  
+  
   taskCard.appendChild(taskName);
   taskCard.appendChild(taskBody);
   taskBody.appendChild(taskDescription);
