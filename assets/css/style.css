@@ -48,11 +48,11 @@ body {
 .close {
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
+  font-size: 15px;
   font-weight: bold;
     position:absolute;
     right: 10px;
-    top: 5px;
+    top: 10px;
   
 }
 
@@ -71,24 +71,20 @@ li{
   display: inline;
 }
 
-
 .card{
   margin: 5% 0 5% 0;
 }
 
+
+/* Card Color Changes */
 .overdue{
 background-color: #FB6962;
-}
-
-.overdue-delete{
-  background-color: #ff2020;
-
 }
 
 .neardue{
   background-color:#FCFC99;
 }
 
-.neardue-delete{
-  background-color: 	#ffc905;
+.modal-title{
+  line-height:0.5;
 }
