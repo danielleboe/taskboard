@@ -18,7 +18,7 @@ function generateTaskId() {
 // function createTaskCard(task) {
 
 // Get the modal
-const newTask = document.getElementById("myModal");
+const newTask = document.getElementById("exampleModal");
 console.log("newTask");
 
 // Get the button that opens the modal
@@ -78,7 +78,9 @@ submitTask.addEventListener("click", function (event) {
 
   //localStorage set item json.stringify()
   localStorage.setItem("parentTasks", JSON.stringify(parentTasks));
-  newTask.reset();
+
+  const formModal = document.getElementById("myModal");
+    formModal.reset();
   newTask.style.display = "none";
   window.location.reload();
 });
