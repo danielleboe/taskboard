@@ -5,6 +5,7 @@ const tasktitleInput = document.querySelector("#taskTitle");
 const duedateformInput = document.querySelector("#datepicker");
 const taskDescriptionInput = document.querySelector("#taskDescription");
 const submitTask = document.querySelector("#submit-new-task");
+const duedateForm = duedateformInput.value;
 
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
@@ -13,15 +14,12 @@ function generateTaskId() {
   return myuuid;
 }
 
-
-
-
-
 // Todo: create a function to create a task card - (popup modal)
 // function createTaskCard(task) {
 
 // Get the modal
 const newTask = document.getElementById("myModal");
+console.log("newTask");
 
 // Get the button that opens the modal
 const btn = document.getElementById("myBtn");
@@ -63,6 +61,7 @@ submitTask.addEventListener("click", function (event) {
     dttm: new Date(),
     taskId: generateTaskId(),
     state: "todo",
+    // status: "setStatus(),"
   };
 
   // declare variable for parent array
@@ -98,7 +97,6 @@ function drag(event) {
 function allowDrop(event) {
   event.preventDefault();
   console.log("Made it here ++++++++");
-
 }
 
 //dragenter event is fired when a dragged element or text selection enters a valid drop target
@@ -121,10 +119,8 @@ function drop(event) {
 function updateTask(taskId, targetId) {
   //find task that was moved
   const existingTasks = JSON.parse(localStorage.getItem("parentTasks"));
-  console.log(existingTasks);
+  // console.log(existingTasks);
   for (const task of existingTasks) {
-    // console.log(task);
-
     //change state
     if (task.taskId === taskId) {
       console.log(targetId);
@@ -136,15 +132,11 @@ function updateTask(taskId, targetId) {
         task.state = "todo";
       }
     }
-
     console.log(task);
 
     //save update to local storage
-    console.log(existingTasks);
     localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
   }
-
-  
 }
 
 ///////
@@ -178,90 +170,91 @@ for (const singleTask of lastTask) {
   deleteTask.textContent = `Delete`;
   taskDescription.textContent = `${singleTask.taskdescriptionForm}`;
 
-if (singleTask.state === "inProgress") {
-  inProgress.appendChild(taskCard);
+  if (singleTask.state === "inProgress") {
+    inProgress.appendChild(taskCard);
+  } else if (singleTask.state === "done") {
+    done.appendChild(taskCard);
+  } else {
+    todoCards.appendChild(taskCard);
+  }
 
-    } else if (singleTask.state === "done") {
-      done.appendChild(taskCard);
-    } else {
-      todoCards.appendChild(taskCard);
-    }
-  
   taskCard.appendChild(taskName);
   taskCard.appendChild(taskBody);
   taskBody.appendChild(taskDescription);
   taskBody.appendChild(taskDueDate);
   taskBody.appendChild(deleteTask);
 
-  taskCard.setAttribute("class", "card");
   taskBody.setAttribute("class", "card-body task");
-  taskName.setAttribute("class", "card-header");
-  taskDescription.setAttribute("class", "card-text status");
-  deleteTask.setAttribute("class", "btn btn-primary delete");
-  deleteTask.setAttribute("id", `delete-${singleTask.taskId}`);
-  deleteTask.setAttribute("onclick", "handleDeleteTask(event)")
-  taskDueDate.setAttribute("class", "card-text due-date");
+  taskCard.setAttribute("class", "card");
   taskCard.setAttribute("draggable", "true");
   taskCard.setAttribute("ondragstart", "drag(event)");
   taskCard.setAttribute("id", singleTask.taskId);
-}
+  taskName.setAttribute("class", "card-header");
+  taskDescription.setAttribute("class", "card-text taskDescription");
+  deleteTask.setAttribute("class", "btn btn-primary delete");
+  deleteTask.setAttribute("id", `delete-${singleTask.taskId}`);
+  deleteTask.setAttribute("onclick", "handleDeleteTask(event)");
+  taskDueDate.setAttribute("class", "card-text due-date");
 
+  setStatus(taskCard,singleTask);
+
+  
+
+
+
+}
 
 // Todo: create a function to handle deleting a task
-function handleDeleteTask(event){
-console.log(event.target.id);
-const deleteId = event.target.id.substring(7);
-console.log(deleteId, "deleteId");
-const existingTasks = JSON.parse(localStorage.getItem("parentTasks"));
-console.log(existingTasks);
+function handleDeleteTask(event) {
+  console.log(event.target.id);
+  const deleteId = event.target.id.substring(7);
+  console.log(deleteId, "deleteId");
+  const existingTasks = JSON.parse(localStorage.getItem("parentTasks"));
+  console.log(existingTasks);
 
+  const index = existingTasks.findIndex(function (task) {
+    return task.taskId === deleteId;
+  });
+  console.log(index, "task index value");
 
+  existingTasks.splice(index, 1);
+  // delete existingTasks[index];
+  console.log(existingTasks, "deleteindex");
 
+  localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
+  window.location.reload();
 
-const index = existingTasks.findIndex(function(task){
-  return task.taskId === deleteId
-});
-console.log(index, "task index value")
+  // Todo: create a function to handle dropping a task into a new status lane
 
+  ///Update Task after drag & drop
+  function updateTask(taskId, targetId) {
+    //find task that was moved
+    const existingTasks = JSON.parse(localStorage.getItem("parentTasks"));
+    console.log(existingTasks);
 
-existingTasks.splice(index,1)
-// delete existingTasks[index];
-console.log(existingTasks, "deleteindex");
+    for (const task of existingTasks) {
+      // console.log(task);
 
-localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
-window.location.reload();
+      //change state
+      if (task.taskId === taskId) {
+        console.log(targetId);
+        if (targetId === "inprogress-body") {
+          task.state = "inProgress";
+        } else if (targetId === "done-body") {
+          task.state = "done";
+        } else {
+          task.state = "todo";
+        }
+      }
 
-// for (const task of existingTasks) {
-//   // console.log(task);
+      // console.log(task);
 
-//   //change state
-//   if (task.taskId === deleteId) {
-//     if (targetId === "inprogress-body") {
-//       task.state = "inProgress";
-//     } else if (targetId === "done-body") {
-//       task.state = "done";
-//     } else {
-//       task.state = "todo";
-//     }
-//   }
-
-//   console.log(task);
-
-//   //save update to local storage
-//   console.log(existingTasks);
-//   localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
-// }
-
-
+      //save update to local storage
+      // console.log(existingTasks);
+      localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
+    }
+  }
 }
-
-// const deleteButton = document.getElementById("delete")
-// {}
-
-// Todo: create a function to handle dropping a task into a new status lane
-// function handleDrop(event, ui) {
-
-// }
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 // $(document).ready(function () {
@@ -274,36 +267,57 @@ window.location.reload();
 // }
 
 
-// do not use
 
-///Update Task after drag & drop
-function updateTask(taskId, targetId) {
-  //find task that was moved
-  const existingTasks = JSON.parse(localStorage.getItem("parentTasks"));
-  console.log(existingTasks);
-  
-  
-for (const task of existingTasks) {
-    // console.log(task);
+/// set status
+function setStatus(taskCard, singleTask) {
+  // console.log("check")
+  // const currentDate = new Date(); //define current date
+  // Function to Add days to current date
+  function nearDue(date, days) {
+    const neardueDate = new Date(date);
+    neardueDate.setDate(date.getDate() + days);
+    return neardueDate;
+  }
+  // Get the current date
+  const todayDate = new Date();
+  todayDate.setHours(23,59,59,999);
+  const duedate = new Date(singleTask.duedateForm);
+  duedate.setHours(23,59,59,999);
 
-    //change state
-    if (task.taskId === taskId) {
-      console.log(targetId);
-      if (targetId === "inprogress-body") {
-        task.state = "inProgress";
-      } else if (targetId === "done-body") {
-        task.state = "done";
-      } else {
-        task.state = "todo";
-      }
-    }
+  // console.log(`duedatenew: ${duedate}`)
+  // Number of days that we want to add in current date
+  // Function call to add days
+  const neardueDate = nearDue(todayDate, 2);
+  neardueDate.setHours(23,59,59,999);
+  // console.log("New Date: ", neardueDate);
+  // console.log(`nearduedatecheck: ${duedate === neardueDate}`);
 
-    console.log(task);
+  const yesterday = nearDue(todayDate, -1);
+  yesterday.setHours(23,59,59,999);
 
-    //save update to local storage
-    console.log(existingTasks);
-    localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
+// console.log(`yesterday ${yesterday}`);
+
+
+  ////
+  // change status
+  console.log(`duedateform ${duedate}`,`todaydate ${todayDate}`);
+  if (duedate < todayDate) {
+    taskCard.setAttribute("class", "card overdue");
+    singleTask.status = "overdue";
+
+  } else if (duedate > yesterday && duedate < neardueDate) {
+    taskCard.setAttribute("class", "card neardue");
+    singleTask.status = "neardue";
+  } else {
+    taskCard.setAttribute("class", "card");
+    singleTask.status = "active";
   }
 
-  
-}
+  console.log (`today+1: ${todayDate + 1}`);
+  console.log(singleTask);
+
+  //save update to local storage
+  // console.log(existingTasks);
+  // localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
+};
+//end set status

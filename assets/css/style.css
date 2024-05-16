@@ -50,6 +50,10 @@ body {
   float: right;
   font-size: 28px;
   font-weight: bold;
+    position:absolute;
+    right: 10px;
+    top: 5px;
+  
 }
 
 .close:hover,
@@ -67,11 +71,6 @@ li{
   display: inline;
 }
 
-.close {
-  position:absolute;
-  right: 10px;
-  top: 5px;;
-}
 
 .card{
   margin: 5% 0 5% 0;
