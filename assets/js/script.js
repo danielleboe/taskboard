@@ -13,6 +13,10 @@ function generateTaskId() {
   return myuuid;
 }
 
+
+
+
+
 // Todo: create a function to create a task card - (popup modal)
 // function createTaskCard(task) {
 
@@ -61,12 +65,12 @@ submitTask.addEventListener("click", function (event) {
     state: "todo",
   };
 
-  // declare variable for parent
+  // declare variable for parent array
   // add to single post to existing json array
   let parentTasks = [];
   const existingTasks = JSON.parse(localStorage.getItem("parentTasks"));
 
-  //if parentpost exists then add to existing last post
+  //if the parent post exists then add to existing last post
   if (existingTasks !== null) {
     parentTasks = existingTasks;
   }
@@ -90,20 +94,11 @@ function drag(event) {
   console.log("dragEvent++++--", event.dataTransfer);
 }
 
-//
-
 //ondragover - dragover event is fired when an element or text selection is being dragged over a valid drop target
 function allowDrop(event) {
   event.preventDefault();
   console.log("Made it here ++++++++");
-  // event.dataTransfer.dropEffect = "move";
-  // const inProgress = document.getElementById ('in-progress-cards');
-  // const done = document.getElementById ('done-cards');
-  // console.log("++++",event.dataTransfer);
-  // inProgress.appendChild(taskCard);
-  // const data = event.dataTransfer.getData("text/plain");
-  // done.appendChild(document.getElementById(data));
-  // console.log("allowDrop+++");
+
 }
 
 //dragenter event is fired when a dragged element or text selection enters a valid drop target
@@ -191,10 +186,6 @@ if (singleTask.state === "inProgress") {
     } else {
       todoCards.appendChild(taskCard);
     }
-
-    
-
-  
   
   taskCard.appendChild(taskName);
   taskCard.appendChild(taskBody);
@@ -207,30 +198,65 @@ if (singleTask.state === "inProgress") {
   taskName.setAttribute("class", "card-header");
   taskDescription.setAttribute("class", "card-text status");
   deleteTask.setAttribute("class", "btn btn-primary delete");
+  deleteTask.setAttribute("id", `delete-${singleTask.taskId}`);
+  deleteTask.setAttribute("onclick", "handleDeleteTask(event)")
   taskDueDate.setAttribute("class", "card-text due-date");
   taskCard.setAttribute("draggable", "true");
   taskCard.setAttribute("ondragstart", "drag(event)");
   taskCard.setAttribute("id", singleTask.taskId);
 }
 
-/* <div class="card">
-                <div class="card-header">
-                  Task Title
-                </div>
-                <div class="card-body task">
-                  <p class="card-text status">Status</p>
-                  <p class="card-text due-date" >Due Date</p>
-                  <a href="#" class="btn btn-primary delete">Delete</a>
-                  
-                </div>
-              </div> */
-
-// }
 
 // Todo: create a function to handle deleting a task
-// function handleDeleteTask(event){
+function handleDeleteTask(event){
+console.log(event.target.id);
+const deleteId = event.target.id.substring(7);
+console.log(deleteId, "deleteId");
+const existingTasks = JSON.parse(localStorage.getItem("parentTasks"));
+console.log(existingTasks);
 
+
+
+
+const index = existingTasks.findIndex(function(task){
+  return task.taskId === deleteId
+});
+console.log(index, "task index value")
+
+
+existingTasks.splice(index,1)
+// delete existingTasks[index];
+console.log(existingTasks, "deleteindex");
+
+localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
+window.location.reload();
+
+// for (const task of existingTasks) {
+//   // console.log(task);
+
+//   //change state
+//   if (task.taskId === deleteId) {
+//     if (targetId === "inprogress-body") {
+//       task.state = "inProgress";
+//     } else if (targetId === "done-body") {
+//       task.state = "done";
+//     } else {
+//       task.state = "todo";
+//     }
+//   }
+
+//   console.log(task);
+
+//   //save update to local storage
+//   console.log(existingTasks);
+//   localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
 // }
+
+
+}
+
+// const deleteButton = document.getElementById("delete")
+// {}
 
 // Todo: create a function to handle dropping a task into a new status lane
 // function handleDrop(event, ui) {
@@ -246,3 +272,38 @@ if (singleTask.state === "inProgress") {
 // Todo: create a function to render the task list and make cards draggable
 // function renderTaskList() {
 // }
+
+
+// do not use
+
+///Update Task after drag & drop
+function updateTask(taskId, targetId) {
+  //find task that was moved
+  const existingTasks = JSON.parse(localStorage.getItem("parentTasks"));
+  console.log(existingTasks);
+  
+  
+for (const task of existingTasks) {
+    // console.log(task);
+
+    //change state
+    if (task.taskId === taskId) {
+      console.log(targetId);
+      if (targetId === "inprogress-body") {
+        task.state = "inProgress";
+      } else if (targetId === "done-body") {
+        task.state = "done";
+      } else {
+        task.state = "todo";
+      }
+    }
+
+    console.log(task);
+
+    //save update to local storage
+    console.log(existingTasks);
+    localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
+  }
+
+  
+}
