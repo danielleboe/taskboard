@@ -19,7 +19,6 @@ function generateTaskId() {
 
 // Get the modal
 const newTask = document.getElementById("exampleModal");
-console.log("newTask");
 
 // Get the button that opens the modal
 const btn = document.getElementById("myBtn");
@@ -88,16 +87,13 @@ submitTask.addEventListener("click", function (event) {
 
 //ondragstart - dragstart event is fired when the user starts dragging an element or text selection /draggable = true
 function drag(event) {
-  console.log("Dragging +++++++++++++++++");
   event.dataTransfer.dropEffect = "move";
   event.dataTransfer.setData("text", event.target.id);
-  console.log("dragEvent++++--", event.dataTransfer);
 }
 
 //ondragover - dragover event is fired when an element or text selection is being dragged over a valid drop target
 function allowDrop(event) {
   event.preventDefault();
-  console.log("Made it here ++++++++");
 }
 
 //dragenter event is fired when a dragged element or text selection enters a valid drop target
@@ -108,9 +104,7 @@ function dragEnter(event) {
 //ondrop - event is fired when an element or text selection is dropped on a valid drop target
 function drop(event) {
   event.preventDefault();
-  console.log("drop+++", event);
   const taskId = event.dataTransfer.getData("text");
-  console.log("dragEvent++++", taskId);
   const card = document.getElementById(taskId);
   event.target.appendChild(card);
   updateTask(taskId, event.target.id);
@@ -120,11 +114,10 @@ function drop(event) {
 function updateTask(taskId, targetId) {
   //find task that was moved
   const existingTasks = JSON.parse(localStorage.getItem("parentTasks"));
-  // console.log(existingTasks);
+
   for (const task of existingTasks) {
     //change state
     if (task.taskId === taskId) {
-      console.log(targetId);
       if (targetId === "inprogress-body") {
         task.state = "inProgress";
       } else if (targetId === "done-body") {
@@ -133,7 +126,6 @@ function updateTask(taskId, targetId) {
         task.state = "todo";
       }
     }
-    console.log(task);
 
     //save update to local storage
     localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
@@ -196,20 +188,14 @@ for (const singleTask of lastTask) {
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event) {
-  console.log(event.target.id);
   const deleteId = event.target.id.substring(7);
-  console.log(deleteId, "deleteId");
   const existingTasks = JSON.parse(localStorage.getItem("parentTasks"));
-  console.log(existingTasks);
-
   const index = existingTasks.findIndex(function (task) {
     return task.taskId === deleteId;
   });
-  console.log(index, "task index value");
 
   existingTasks.splice(index, 1);
   // delete existingTasks[index];
-  console.log(existingTasks, "deleteindex");
 
   localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
   window.location.reload();
@@ -220,11 +206,8 @@ function handleDeleteTask(event) {
   function updateTask(taskId, targetId) {
     //find task that was moved
     const existingTasks = JSON.parse(localStorage.getItem("parentTasks"));
-    console.log(existingTasks);
 
     for (const task of existingTasks) {
-      // console.log(task);
-
       //change state
       if (task.taskId === taskId) {
         console.log(targetId);
@@ -236,7 +219,7 @@ function handleDeleteTask(event) {
           task.state = "todo";
         }
       }
-      //save update to local storage    
+      //save update to local storage
       localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
     }
   }
@@ -259,8 +242,8 @@ function setStatus(taskCard, singleTask) {
   const yesterday = nearDue(todayDate, -1);
   yesterday.setHours(23, 59, 59, 999);
 
-//Update to status  
-  console.log(`duedateform ${duedate}`, `todaydate ${todayDate}`);
+  //Update to status
+  // console.log(`duedateform ${duedate}`, `todaydate ${todayDate}`);
   if (duedate < todayDate) {
     taskCard.setAttribute("class", "card overdue");
     singleTask.status = "overdue";
@@ -271,7 +254,5 @@ function setStatus(taskCard, singleTask) {
     taskCard.setAttribute("class", "card");
     singleTask.status = "active";
   }
-
-  console.log(`today+1: ${todayDate + 1}`);
-  console.log(singleTask);
+}
 //end set status
