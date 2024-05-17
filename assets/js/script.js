@@ -61,7 +61,6 @@ submitTask.addEventListener("click", function (event) {
     dttm: new Date(),
     taskId: generateTaskId(),
     state: "todo",
-    // status: "setStatus(),"
   };
 
   // declare variable for parent array
@@ -80,7 +79,7 @@ submitTask.addEventListener("click", function (event) {
   localStorage.setItem("parentTasks", JSON.stringify(parentTasks));
 
   const formModal = document.getElementById("myModal");
-    formModal.reset();
+  formModal.reset();
   newTask.style.display = "none";
   window.location.reload();
 });
@@ -141,18 +140,12 @@ function updateTask(taskId, targetId) {
   }
 }
 
-///////
-
 // Todo: create a function to handle adding a new task
-// function handleAddTask(event){
 
 const lastTask = JSON.parse(localStorage.getItem("parentTasks"));
-// console.log(lastPost);
 
 // sort reverse chronological order
 const sortResult = lastTask.sort(function (a, b) {
-  // console.log(new Date(a.dttm), "+++++++");
-  // console.log(new Date(b.dttm), "+++++++");
   return new Date(b.dttm) - new Date(a.dttm);
 });
 
@@ -198,12 +191,7 @@ for (const singleTask of lastTask) {
   deleteTask.setAttribute("onclick", "handleDeleteTask(event)");
   taskDueDate.setAttribute("class", "card-text due-date");
 
-  setStatus(taskCard,singleTask);
-
-  
-
-
-
+  setStatus(taskCard, singleTask);
 }
 
 // Todo: create a function to handle deleting a task
@@ -248,33 +236,14 @@ function handleDeleteTask(event) {
           task.state = "todo";
         }
       }
-
-      // console.log(task);
-
-      //save update to local storage
-      // console.log(existingTasks);
+      //save update to local storage    
       localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
     }
   }
 }
-
-// Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
-// $(document).ready(function () {
-//     localStorage.setItem();
-
-// });
-
-// Todo: create a function to render the task list and make cards draggable
-// function renderTaskList() {
-// }
-
-
-
 /// set status
+//set date comparison values for status (current date, due date, neardate, overdue)
 function setStatus(taskCard, singleTask) {
-  // console.log("check")
-  // const currentDate = new Date(); //define current date
-  // Function to Add days to current date
   function nearDue(date, days) {
     const neardueDate = new Date(date);
     neardueDate.setDate(date.getDate() + days);
@@ -282,31 +251,19 @@ function setStatus(taskCard, singleTask) {
   }
   // Get the current date
   const todayDate = new Date();
-  todayDate.setHours(23,59,59,999);
+  todayDate.setHours(23, 59, 59, 999);
   const duedate = new Date(singleTask.duedateForm);
-  duedate.setHours(23,59,59,999);
-
-  // console.log(`duedatenew: ${duedate}`)
-  // Number of days that we want to add in current date
-  // Function call to add days
+  duedate.setHours(23, 59, 59, 999);
   const neardueDate = nearDue(todayDate, 2);
-  neardueDate.setHours(23,59,59,999);
-  // console.log("New Date: ", neardueDate);
-  // console.log(`nearduedatecheck: ${duedate === neardueDate}`);
-
+  neardueDate.setHours(23, 59, 59, 999);
   const yesterday = nearDue(todayDate, -1);
-  yesterday.setHours(23,59,59,999);
+  yesterday.setHours(23, 59, 59, 999);
 
-// console.log(`yesterday ${yesterday}`);
-
-
-  ////
-  // change status
-  console.log(`duedateform ${duedate}`,`todaydate ${todayDate}`);
+//Update to status  
+  console.log(`duedateform ${duedate}`, `todaydate ${todayDate}`);
   if (duedate < todayDate) {
     taskCard.setAttribute("class", "card overdue");
     singleTask.status = "overdue";
-
   } else if (duedate > yesterday && duedate < neardueDate) {
     taskCard.setAttribute("class", "card neardue");
     singleTask.status = "neardue";
@@ -315,11 +272,6 @@ function setStatus(taskCard, singleTask) {
     singleTask.status = "active";
   }
 
-  console.log (`today+1: ${todayDate + 1}`);
+  console.log(`today+1: ${todayDate + 1}`);
   console.log(singleTask);
-
-  //save update to local storage
-  // console.log(existingTasks);
-  // localStorage.setItem("parentTasks", JSON.stringify(existingTasks));
-};
 //end set status
