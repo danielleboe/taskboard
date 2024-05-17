@@ -225,25 +225,17 @@ function handleDeleteTask(event) {
   }
 }
 /// set status
-//set date comparison values for status (current date, due date, neardate, overdue)
 function setStatus(taskCard, singleTask) {
-  function nearDue(date, days) {
-    const neardueDate = new Date(date);
-    neardueDate.setDate(date.getDate() + days);
-    return neardueDate;
-  }
-  // Get the current date
-  const todayDate = new Date();
-  todayDate.setHours(23, 59, 59, 999);
-  const duedate = new Date(singleTask.duedateForm);
-  duedate.setHours(23, 59, 59, 999);
-  const neardueDate = nearDue(todayDate, 2);
-  neardueDate.setHours(23, 59, 59, 999);
-  const yesterday = nearDue(todayDate, -1);
-  yesterday.setHours(23, 59, 59, 999);
+  // Get the current date - set value as end of day today
+  const todayDate = dayjs().endOf("day").toDate();
+  //get the due date and set as the end of the day
+  const duedate = dayjs(singleTask.duedateForm).endOf("day").toDate();
+  //get the nearing deadline date, set to end of day
+  const neardueDate = dayjs().add(2, "d").endOf("day").toDate();
+  //get yesterday's date - set to end of day
+  const yesterday = dayjs().subtract(1, "d").endOf("day").toDate();
 
   //Update to status
-  // console.log(`duedateform ${duedate}`, `todaydate ${todayDate}`);
   if (duedate < todayDate) {
     taskCard.setAttribute("class", "card overdue");
     singleTask.status = "overdue";
@@ -255,4 +247,3 @@ function setStatus(taskCard, singleTask) {
     singleTask.status = "active";
   }
 }
-//end set status
